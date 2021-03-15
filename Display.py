@@ -23,4 +23,12 @@ class Interface:
                 cell_number.draw(self.win)
         life.next_generation()
 
-    def read_cell_click(self):
+    def click_pos(self):
+        """Returns the cell in which was clicked"""
+        mouse_coordinates = self.win.getMouse() / self.multiply(1)
+        for cell_x in range(self.cell_number):
+            if mouse_coordinates[0] < cell_x:
+                for cell_y in range(self.cell_number):
+                    if mouse_coordinates[1] < cell_y:
+                        cell = (cell_x, cell_y)
+                        return cell
