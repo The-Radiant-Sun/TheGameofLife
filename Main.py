@@ -6,23 +6,20 @@ from time import sleep
 class GameOfLife:
     """Holds the Game of Life"""
     @staticmethod
-    def run(cell_number, spawn_coordinates, generations, generation_delay):
+    def run(cell_number, generations, generation_delay, size):
         """Run the Game of Life"""
+        spawn_coordinates = []
+        graphical_display = Interface(cell_number, size)
         life = Life(cell_number, spawn_coordinates)
-        graphical_display = Interface(cell_number, 50)
+        x = 0
+        while x != 5:
+            x += 1
+            click_coord = graphical_display.click_pos()
+            spawn_coordinates.append(click_coord)
+
         for generation in range(generations):
             graphical_display.generate_update(life)
             sleep(generation_delay)
 
 
-spawn_locations = [
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (5, 1),
-    (5, 2),
-    (6, 1),
-    (5, 3)
-]
-
-GameOfLife.run(10, spawn_locations, 10, 1)
+GameOfLife.run(10, 10, 1, 50)

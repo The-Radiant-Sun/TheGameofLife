@@ -3,19 +3,21 @@ class Life:
     def __init__(self, cells, spawn_coordinates):
         self.alive, self.dead = True, False
         self.cells = cells
-        self.world = self.create_world(spawn_coordinates)
+        self.world = self.generate_blank(spawn_coordinates)
         self.spawn = 3
         self.keep = [2, 3]
 
-    def create_world(self, spawn_coordinates):
+    def generate_blank(self):
         """Generates the blank stage"""
         world = {}
         for y in range(self.cells):
             for x in range(self.cells):
                 world[(x, y)] = self.dead
-        for coordinate in spawn_coordinates:
-            world[coordinate] = self.alive
         return world
+
+    def spawn_specific(self, cell_pos):
+        """Spawns in a specific cell"""
+        self.world[cell_pos] = self.alive
 
     def next_generation(self):
         """Calculates the next positions of life"""
