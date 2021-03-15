@@ -7,10 +7,10 @@ class GameOfLife:
     """Holds the Game of Life"""
 
     @staticmethod
-    def run(cell_number, generations, generation_delay, size):
+    def run(cell_numbers, generations, generation_delay, size):
         """Run the Game of Life"""
-        graphical_display = Interface(cell_number, size)
-        life = Life(cell_number)
+        graphical_display = Interface(cell_numbers, size)
+        life = Life(cell_numbers)
         graphical_display.generate_update(life.world)
         x = 0
         while x != 5:
@@ -25,4 +25,4 @@ class GameOfLife:
             sleep(generation_delay)
 
 
-GameOfLife.run(10, 10, 1, 50)
+GameOfLife.run((20, 10), 10, 0.75, 50)

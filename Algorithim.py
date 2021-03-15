@@ -10,8 +10,8 @@ class Life:
     def generate_blank(self):
         """Generates the blank stage"""
         world = {}
-        for y in range(self.cells):
-            for x in range(self.cells):
+        for x in range(self.cells[0]):
+            for y in range(self.cells[1]):
                 world[(x, y)] = self.dead
         return world
 
@@ -22,8 +22,8 @@ class Life:
     def next_generation(self):
         """Calculates the next positions of life"""
         updates = []
-        for y in range(self.cells):
-            for x in range(self.cells):
+        for x in range(self.cells[0]):
+            for y in range(self.cells[1]):
                 surroundings = self.test_surroundings((x, y))
                 if surroundings == self.spawn and not self.world[(x, y)]:
                     updates.append([(x, y), True])
