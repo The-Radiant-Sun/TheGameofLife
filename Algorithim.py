@@ -1,9 +1,9 @@
 class Life:
     """Algorithms for Game of Life"""
-    def __init__(self, cells, spawn_coordinates):
+    def __init__(self, cells):
         self.alive, self.dead = True, False
         self.cells = cells
-        self.world = self.generate_blank(spawn_coordinates)
+        self.world = self.generate_blank()
         self.spawn = 3
         self.keep = [2, 3]
 
@@ -16,7 +16,7 @@ class Life:
         return world
 
     def spawn_specific(self, cell_pos):
-        """Spawns in a specific cell"""
+        """Spawns a specific cell"""
         self.world[cell_pos] = self.alive
 
     def next_generation(self):
