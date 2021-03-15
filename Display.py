@@ -39,6 +39,12 @@ class Interface:
         def triangle_gen(p1, p2, p3):
             return [self.point_gen(p1), self.point_gen(p2), self.point_gen(p3)]
 
-        Polygon(triangle_gen((0, 0.5), (1, 0), (1, 1))).draw(self.win_c)
-        Polygon(triangle_gen((3, 0.5), (2, 0), (2, 1))).draw(self.win_c)
-        Circle(self.point_gen((1.5, 0.5)), self.multiply(0.5)).draw(self.win_c)
+        left_arrow = Polygon(triangle_gen((0, 0.5), (1, 0), (1, 1)))
+        left_arrow.setFill("blue")
+        left_arrow.draw(self.win_c)
+        center_circle = Circle(self.point_gen((1.5, 0.5)), self.multiply(0.5))
+        center_circle.setFill("red")
+        center_circle.draw(self.win_c)
+        right_arrow = Polygon(triangle_gen((3, 0.5), (2, 0), (2, 1)))
+        right_arrow.setFill("blue")
+        right_arrow.draw(self.win_c)
