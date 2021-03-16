@@ -31,7 +31,6 @@ class Interface:
                 for cell_y in range(self.cell_numbers[1]):
                     if mouse_coordinates.getY() / self.multiply(1) < cell_y + 1:
                         cell = (cell_x, cell_y)
-                        print(cell)
                         return cell
 
     def generate_console(self):
