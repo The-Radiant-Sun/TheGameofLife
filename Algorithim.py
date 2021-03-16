@@ -12,20 +12,22 @@ class Life:
 
     def spawn_specific(self, cell_pos):
         """Spawns a specific cell"""
-        self.world[cell_pos[0]][cell_pos[1]].cell_status = True
+        cell = self.world[cell_pos[0]][cell_pos[1]]
+        cell.new_status = True
+        cell.update_history()
 
     def next_generation(self):
         """Calculates the next positions of life"""
-        updates = []
         for x in range(self.cells[0]):
             for y in range(self.cells[1]):
+                cell = self.world[x][y]
                 surroundings = self.test_surroundings((x, y))
-                if surroundings == self.spawn and not self.world[x][y].cell_status:
-                    updates.append([(x, y), True])
-                if surroundings < self.keep[0] or surroundings > self.keep[1]:
-                    updates.append([(x, y), False])
-        for update in updates:
-            self.world[update[0][0]][update[0][1]].cell_status = update[1]
+                if surroundings == self.spawn and not cell.cell_status:
+                    cell.new_status = True
+                    cell.update_history()
+                if (surroundings < self.keep[0] or surroundings > self.keep[1]) and cell.cell_status:
+                    cell.new_status = False
+                    cell.update_history()
 
     def test_surroundings(self, cell_position):
         """Counts the surrounding cells"""

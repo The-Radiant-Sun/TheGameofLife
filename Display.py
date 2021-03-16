@@ -18,14 +18,15 @@ class Interface:
         """Updating the current window with the next generation"""
         for x in range(self.cell_numbers[0]):
             for y in range(self.cell_numbers[1]):
-                cell = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
-                fill_colour = 'green' if world[x][y].cell_status else 'red'
-                cell.setFill(fill_colour)
-                cell.draw(self.win_s)
+                if world[x][y].cell_history[1] == 0:
+                    cell = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
+                    fill_colour = 'green' if world[x][y].cell_status else 'red'
+                    cell.setFill(fill_colour)
+                    cell.draw(self.win_s)
 
-    def click_pos(self):
+    def click_pos(self, window):
         """Returns the cell in which was clicked"""
-        mouse_coordinates = self.win_s.getMouse()
+        mouse_coordinates = window.getMouse()
         for cell_x in range(self.cell_numbers[0]):
             if mouse_coordinates.getX() / self.multiply(1) < cell_x + 1:
                 for cell_y in range(self.cell_numbers[1]):

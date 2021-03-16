@@ -15,7 +15,7 @@ class GameOfLife:
         x = 0
         while x != 5:
             x += 1
-            click_coord = graphical_display.click_pos()
+            click_coord = graphical_display.click_pos(graphical_display.win_s)
             life.spawn_specific(click_coord)
             graphical_display.generate_update(life.world)
 
@@ -25,4 +25,4 @@ class GameOfLife:
             sleep(generation_delay)
 
 
-GameOfLife.run((20, 10), 10, 0.25, 50)
+GameOfLife.run((20, 10), 10, 0.1, 50)
