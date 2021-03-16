@@ -25,4 +25,4 @@ class GameOfLife:
             sleep(generation_delay)
 
 
-GameOfLife.run((20, 10), 10, 0.75, 50)
+GameOfLife.run((20, 10), 10, 0.25, 50)

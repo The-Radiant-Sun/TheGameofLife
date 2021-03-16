@@ -22,8 +22,6 @@ class Interface:
                 fill_colour = 'green' if world[x][y].cell_status else 'red'
                 cell.setFill(fill_colour)
                 cell.draw(self.win_s)
-                cell_number = Text(self.point_gen((x + 0.5, y + 0.5)), "({}, {})".format(x, y))
-                cell_number.draw(self.win_s)
 
     def click_pos(self):
         """Returns the cell in which was clicked"""
