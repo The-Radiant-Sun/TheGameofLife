@@ -18,7 +18,7 @@ class Interface:
         """Updating the current window with the next generation"""
         for x in range(self.cell_numbers[0]):
             for y in range(self.cell_numbers[1]):
-                if world[x][y].cell_history[1] == 0:
+                if world[x][y].cell_history[-1][1] == 0:
                     cell = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
                     fill_colour = 'green' if world[x][y].cell_status else 'red'
                     cell.setFill(fill_colour)
