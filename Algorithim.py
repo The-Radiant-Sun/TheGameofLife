@@ -12,9 +12,7 @@ class Life:
 
     def spawn_specific(self, cell_pos):
         """Spawns a specific cell"""
-        print(cell_pos)
         self.world[cell_pos[0]][cell_pos[1]].cell_status = True
-        print(self.world[cell_pos[0]][cell_pos[1]].cell_status)
 
     def next_generation(self):
         """Calculates the next positions of life"""
