@@ -9,19 +9,17 @@ class GameOfLife:
     @staticmethod
     def run(cell_numbers, generations, generation_delay, size):
         """Run the Game of Life"""
-        graphical_display = Interface(cell_numbers, size)
+        display = Interface(cell_numbers, size)
         life = Life(cell_numbers)
-        graphical_display.generate_update(life.world)
-        x = 0
-        while x != 5:
-            x += 1
-            click_coord = graphical_display.click_pos(graphical_display.win_s)
+        display.generate_update(life.world)
+        while display.click_pos(display.win_c) == (1, 0):
+            click_coord = display.click_pos(display.win_s)
             life.spawn_specific(click_coord)
-            graphical_display.generate_update(life.world)
+            display.generate_update(life.world)
 
         for generation in range(generations):
             life.next_generation()
-            graphical_display.generate_update(life.world)
+            display.generate_update(life.world)
             sleep(generation_delay)
 
 
