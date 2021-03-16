@@ -37,6 +37,6 @@ class Life:
                         if x_shift - 1 == 0 and y_shift - 1 == 0:
                             continue
                         cell_count += 1
-                except KeyError:
+                except IndexError:
                     continue
         return cell_count
