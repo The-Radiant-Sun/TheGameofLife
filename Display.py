@@ -18,8 +18,9 @@ class Interface:
         """Updating the current window with the next generation"""
         for x in range(self.cell_numbers[0]):
             for y in range(self.cell_numbers[1]):
+                print(world[x][y].cell_status)
                 cell = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
-                fill_colour = 'blue' if world[(x, y)] else 'red'
+                fill_colour = 'green' if world[x][y].cell_status else 'red'
                 cell.setFill(fill_colour)
                 cell.draw(self.win_s)
                 cell_number = Text(self.point_gen((x + 0.5, y + 0.5)), "({}, {})".format(x, y))
@@ -33,6 +34,7 @@ class Interface:
                 for cell_y in range(self.cell_numbers[1]):
                     if mouse_coordinates.getY() / self.multiply(1) < cell_y + 1:
                         cell = (cell_x, cell_y)
+                        print(cell)
                         return cell
 
     def generate_console(self):
