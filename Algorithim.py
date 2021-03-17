@@ -22,7 +22,6 @@ class Life:
                 if random.choice([True, False]):
                     self.change_specific((x, y))
 
-
     def next_generation(self):
         """Calculates the next positions of life"""
         updates = []
@@ -30,12 +29,13 @@ class Life:
             for y in range(self.cells[1]):
                 cell = self.world[x][y]
                 surroundings = self.test_surroundings((x, y))
+
                 if surroundings == self.spawn and not cell.cell_status:
                     updates.append(cell)
                 if (surroundings < self.goldilocks[0] or surroundings > self.goldilocks[1]) and cell.cell_status:
                     updates.append(cell)
 
-        for x in range (self.cells[0]):
+        for x in range(self.cells[0]):
             for y in range(self.cells[1]):
                 cell = self.world[x][y]
                 change = cell.cell_status if cell not in updates else not cell.cell_status
@@ -46,11 +46,14 @@ class Life:
         cell_count = 0
         for x_shift in range(3):
             for y_shift in range(3):
+
                 try:
                     if self.world[cell_position[0] + x_shift - 1][cell_position[1] + y_shift - 1].cell_status:
                         if x_shift - 1 == 0 and y_shift - 1 == 0:
                             continue
                         cell_count += 1
+
                 except IndexError:
                     continue
+
         return cell_count
