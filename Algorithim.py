@@ -1,4 +1,5 @@
 from Cell import Cell
+import random
 
 
 class Life:
@@ -10,10 +11,17 @@ class Life:
         self.spawn = 3
         self.goldilocks = [2, 3]
 
-    def spawn_specific(self, cell_pos):
+    def change_specific(self, cell_pos):
         """Spawns a specific cell"""
         cell = self.world[cell_pos[0]][cell_pos[1]]
-        cell.update_history(True)
+        cell.update_history(not cell.cell_history[-1][0])
+
+    def spawn_random(self):
+        for x in range(self.cells[0]):
+            for y in range(self.cells[1]):
+                if random.choice([True, False]):
+                    self.change_specific((x, y))
+
 
     def next_generation(self):
         """Calculates the next positions of life"""

@@ -6,11 +6,12 @@ class Interface:
     def __init__(self, cell_numbers, multiplier):
         self.cell_numbers = cell_numbers
         self.multiply = lambda x: x * multiplier
-        self.win_c = GraphWin("Console", self.multiply(3), self.multiply(1))
+        self.win_c = GraphWin("Console", self.multiply(4), self.multiply(1))
         self.generate_console()
         self.win_s = GraphWin("Screen", self.multiply(self.cell_numbers[0]), self.multiply(self.cell_numbers[1]))
 
     def point_gen(self, xy):
+        """Generates a point based upon a set of multiplied x and y values"""
         point = Point(self.multiply(xy[0]), self.multiply(xy[1]))
         return point
 
@@ -24,7 +25,7 @@ class Interface:
                     if cell.cell_status:
                         fill_colour = 'lightgreen' if cell.cell_history[-1][1] == 0 else 'darkgreen'
                     else:
-                        fill_colour = 'red'
+                        fill_colour = 'darkred'
 
                     cell_display.setFill(fill_colour)
                     cell_display.draw(self.win_s)
@@ -46,9 +47,12 @@ class Interface:
         left_arrow = Polygon(triangle_gen((0, 0.5), (1, 0), (1, 1)))
         left_arrow.setFill("blue")
         left_arrow.draw(self.win_c)
-        center_circle = Circle(self.point_gen((1.5, 0.5)), self.multiply(0.5))
-        center_circle.setFill("red")
-        center_circle.draw(self.win_c)
-        right_arrow = Polygon(triangle_gen((3, 0.5), (2, 0), (2, 1)))
+        left_circle = Circle(self.point_gen((1.5, 0.5)), self.multiply(0.5))
+        left_circle.setFill("red")
+        left_circle.draw(self.win_c)
+        right_circle = Circle(self.point_gen((2.5, 0.5)), self.multiply(0.5))
+        right_circle.setFill("green")
+        right_circle.draw(self.win_c)
+        right_arrow = Polygon(triangle_gen((4, 0.5), (3, 0), (3, 1)))
         right_arrow.setFill("blue")
         right_arrow.draw(self.win_c)
