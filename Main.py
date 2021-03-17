@@ -23,4 +23,4 @@ class GameOfLife:
             sleep(generation_delay)
 
 
-GameOfLife.run((20, 10), 10, 0.1, 50)
+GameOfLife.run((20, 10), 10, 0.5, 50)

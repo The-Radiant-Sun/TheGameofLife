@@ -18,11 +18,16 @@ class Interface:
         """Updating the current window with the next generation"""
         for x in range(self.cell_numbers[0]):
             for y in range(self.cell_numbers[1]):
-                if world[x][y].cell_history[-1][1] == 0:
-                    cell = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
-                    fill_colour = 'green' if world[x][y].cell_status else 'red'
-                    cell.setFill(fill_colour)
-                    cell.draw(self.win_s)
+                cell = world[x][y]
+                if cell.cell_history[-1][1] == 0 or (cell.cell_history[-1][1] == 1 and cell.cell_status):
+                    cell_display = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
+                    if cell.cell_status:
+                        fill_colour = 'lightgreen' if cell.cell_history[-1][1] == 0 else 'darkgreen'
+                    else:
+                        fill_colour = 'red'
+
+                    cell_display.setFill(fill_colour)
+                    cell_display.draw(self.win_s)
 
     def click_pos(self, window):
         """Returns the cell in which was clicked"""

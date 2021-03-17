@@ -8,26 +8,30 @@ class Life:
         self.cells = cells
         self.world = [[Cell((x, y)) for y in range(self.cells[1])] for x in range(self.cells[0])]
         self.spawn = 3
-        self.keep = [2, 3]
+        self.goldilocks = [2, 3]
 
     def spawn_specific(self, cell_pos):
         """Spawns a specific cell"""
         cell = self.world[cell_pos[0]][cell_pos[1]]
-        cell.new_status = True
-        cell.update_history()
+        cell.update_history(True)
 
     def next_generation(self):
         """Calculates the next positions of life"""
+        updates = []
         for x in range(self.cells[0]):
             for y in range(self.cells[1]):
                 cell = self.world[x][y]
                 surroundings = self.test_surroundings((x, y))
                 if surroundings == self.spawn and not cell.cell_status:
-                    cell.new_status = True
-                    cell.update_history()
-                if (surroundings < self.keep[0] or surroundings > self.keep[1]) and cell.cell_status:
-                    cell.new_status = False
-                    cell.update_history()
+                    updates.append(cell)
+                if (surroundings < self.goldilocks[0] or surroundings > self.goldilocks[1]) and cell.cell_status:
+                    updates.append(cell)
+
+        for x in range (self.cells[0]):
+            for y in range(self.cells[1]):
+                cell = self.world[x][y]
+                change = cell.cell_status if cell not in updates else not cell.cell_status
+                cell.update_history(change)
 
     def test_surroundings(self, cell_position):
         """Counts the surrounding cells"""
