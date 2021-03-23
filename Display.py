@@ -20,8 +20,13 @@ class Interface:
         """Generates a point based upon a set of multiplied x and y values"""
         return Point(self.multiply(xy[0]), self.multiply(xy[1]))
 
-    def generate_update(self, world):
-        """Updating the current window with the next generation"""
+    def generate_update(self, world, end):
+        """Updating the current window with the next generation or closing if no generation"""
+        if end:
+            self.win_c.close()
+            self.win_s.close()
+            sys.exit()
+
         for x in range(self.cell_numbers[0]):
             for y in range(self.cell_numbers[1]):
                 cell = world[x][y]

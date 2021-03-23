@@ -10,6 +10,7 @@ class Life:
         self.world = [[Cell((x, y)) for y in range(self.cells[1])] for x in range(self.cells[0])]
         self.spawn = 3
         self.goldilocks = [2, 3]
+        self.end = False
 
     def change_specific(self, cell_pos):
         """Spawns a specific cell"""
@@ -25,15 +26,18 @@ class Life:
     def next_generation(self):
         """Calculates the next positions of life"""
         updates = []
+        end_count = 0
         for x in range(self.cells[0]):
             for y in range(self.cells[1]):
                 cell = self.world[x][y]
                 surroundings = self.test_surroundings((x, y))
 
-                if surroundings == self.spawn and not cell.cell_status:
+                if (surroundings == self.spawn and not cell.cell_status) or\
+                        ((surroundings < self.goldilocks[0] or surroundings > self.goldilocks[1]) and cell.cell_status):
                     updates.append(cell)
-                if (surroundings < self.goldilocks[0] or surroundings > self.goldilocks[1]) and cell.cell_status:
-                    updates.append(cell)
+
+                if not cell.cell_status:
+                    end_count += 1
 
         for x in range(self.cells[0]):
             for y in range(self.cells[1]):
@@ -41,16 +45,17 @@ class Life:
                 change = cell.cell_status if cell not in updates else not cell.cell_status
                 cell.update_history(change)
 
+        if end_count == self.cells[0] * self.cells[1]:
+            self.end = True
+
     def test_surroundings(self, cell_position):
         """Counts the surrounding cells"""
         cell_count = 0
         for x_shift in range(3):
             for y_shift in range(3):
-
                 try:
-                    if self.world[cell_position[0] + x_shift - 1][cell_position[1] + y_shift - 1].cell_status:
-                        if x_shift - 1 == 0 and y_shift - 1 == 0:
-                            continue
+                    if self.world[cell_position[0] + x_shift - 1][cell_position[1] + y_shift - 1].cell_status and\
+                            not (x_shift - 1 == 0 and y_shift - 1 == 0):
                         cell_count += 1
 
                 except IndexError:

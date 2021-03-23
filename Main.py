@@ -12,10 +12,10 @@ class GameOfLife:
         """Run the Game of Life"""
         display = Interface(cell_numbers, size)
         life = Life(cell_numbers)
-        display.generate_update(life.world)
+        display.generate_update(life.world, life.end)
         click = display.click_pos(display.win_c)
 
-        while click != (0, 0) and click != (3, 0):
+        while click == (1, 0) or click == (2, 0):
             if click == (1, 0):
                 click_coord = display.click_pos(display.win_s)
                 life.change_specific(click_coord)
@@ -23,12 +23,12 @@ class GameOfLife:
             if click == (2, 0):
                 life.spawn_random()
 
-            display.generate_update(life.world)
+            display.generate_update(life.world, life.end)
             click = display.click_pos(display.win_c)
 
         for generation in range(generations):
             life.next_generation()
-            display.generate_update(life.world)
+            display.generate_update(life.world, life.end)
             sleep(generation_delay)
 
 
