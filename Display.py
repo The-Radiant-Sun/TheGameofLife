@@ -4,6 +4,7 @@ from graphics import *
 class Interface:
     """The visuals for the Game of Life"""
     def __init__(self, cell_numbers, multiplier):
+        """Sets up the initial variables and windows"""
         self.cell_numbers = cell_numbers
         self.multiply = lambda x: x * multiplier
         self.win_c = GraphWin("Console", self.multiply(4), self.multiply(1))
@@ -12,6 +13,7 @@ class Interface:
 
     @staticmethod
     def enact(colour, shape, window):
+        """Drawn the polygon according to inputs"""
         n_gon = shape
         n_gon.setFill(colour)
         n_gon.draw(window)
@@ -54,7 +56,9 @@ class Interface:
                         return cell_pos
 
     def generate_console(self):
+        """Generate a console in a separate window"""
         def triangle_gen(p1, p2, p3):
+            """Returns the points for a triangle"""
             return [self.point_gen(p1), self.point_gen(p2), self.point_gen(p3)]
 
         self.enact('blue', Polygon(triangle_gen((0, 0.5), (1, 0), (1, 1))), self.win_c)
