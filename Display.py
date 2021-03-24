@@ -3,13 +3,13 @@ from graphics import *
 
 class Interface:
     """The visuals for the Game of Life"""
-    def __init__(self, cell_numbers, multiplier):
+    def __init__(self, world_size, multiplier):
         """Sets up the initial variables and windows"""
-        self.cell_numbers = cell_numbers
+        self.world_size = world_size
         self.multiply = lambda x: x * multiplier
         self.win_c = GraphWin("Console", self.multiply(4), self.multiply(1))
         self.generate_console()
-        self.win_s = GraphWin("Screen", self.multiply(self.cell_numbers[0]), self.multiply(self.cell_numbers[1]))
+        self.win_s = GraphWin("Screen", self.multiply(self.world_size[0]), self.multiply(self.world_size[1]))
 
     @staticmethod
     def enact(colour, shape, window):
@@ -19,7 +19,7 @@ class Interface:
         n_gon.draw(window)
 
     def point_gen(self, xy):
-        """Generates a point based upon a set of multiplied x and y values"""
+        """Returns a point based upon a set of multiplied x and y values"""
         return Point(self.multiply(xy[0]), self.multiply(xy[1]))
 
     def generate_update(self, world, end):
@@ -29,15 +29,17 @@ class Interface:
             self.win_s.close()
             sys.exit()
 
-        for x in range(self.cell_numbers[0]):
-            for y in range(self.cell_numbers[1]):
+        for x in range(self.world_size[0]):
+            for y in range(self.world_size[1]):
                 cell = world[x][y]
 
-                if cell.cell_history[-1][1] == 0 or (cell.cell_history[-1][1] == 1 and cell.cell_status):
+                if cell.length_of_state() == 0 or (cell.length_of_state() == 1 and cell.is_alive()):
                     cell_display = Rectangle(self.point_gen((x, y)), self.point_gen((x + 1, y + 1)))
 
-                    if cell.cell_status:
-                        fill_colour = 'lightgreen' if cell.cell_history[-1][1] == 0 else 'darkgreen'
+                    if cell.is_alive():
+                        fill_colour = 'lightgreen' if cell.length_of_state() == 0 else 'darkgreen'
+                    elif len(cell.cell_history) == 1:
+                        fill_colour = 'grey'
                     else:
                         fill_colour = 'darkred'
 
@@ -47,10 +49,10 @@ class Interface:
     def click_pos(self, window):
         """Returns the cell in which was clicked"""
         mouse_coordinates = window.getMouse()
-        for cell_x in range(self.cell_numbers[0]):
+        for cell_x in range(self.world_size[0]):
             if mouse_coordinates.getX() / self.multiply(1) < cell_x + 1:
 
-                for cell_y in range(self.cell_numbers[1]):
+                for cell_y in range(self.world_size[1]):
                     if mouse_coordinates.getY() / self.multiply(1) < cell_y + 1:
                         cell_pos = (cell_x, cell_y)
                         return cell_pos
