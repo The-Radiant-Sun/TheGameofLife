@@ -1,31 +1,40 @@
-from Algorithm import Life  # Use the life class from algorithm
-from Display import Interface  # Use the interface class from display
+from Algorithm import Environment
+from Display import Interface
+from time import sleep
 
 
 class GameOfLife:
+    """Three dimensional game of life with the z axis as time"""
+    """Remove all redundant comments"""
+    """Rework comments to be relevant"""
+    """Move docstrings to above methods"""
     """Holds the Game of Life"""
+    """Change colour of cell alive for longest"""
+    """Change life name of class and use"""
 
     @staticmethod
-    def run(cell_numbers, generations, size):
-        """Run the Game of Life"""
-        display = Interface(cell_numbers, size)  # Create the display object according to parameters
-        life = Life(cell_numbers)  # Create the life object according to parameters
-        display.generate_update(life.world, life.end)  # Update the display with the world and end from the life object
-        click = display.click_pos(display.win_c)  # Wait for a click from the user on the generated console
-        # While the click is on the pre-run buttons
-        while click == (1, 0) or click == (2, 0):
-            if click == (1, 0):  # If the first button is clicked
-                life.change_specific(display.click_pos(display.win_s))  # Switch the clicked on cell's value
+    def run(cell_numbers, generation_delay, generations, size):
+        """Run the Game of Life according to inputted values using the environment and interface classes"""
+        interface = Interface(cell_numbers, size)
+        environment = Environment(cell_numbers)
+        interface.generate_update(environment.world, environment.end)  # Update the interface with the parameters
+        click = interface.click_pos(interface.win_c)  # Wait for a click from the user on the generated console
 
-            if click == (2, 0):  # If the second button is clicked
-                life.spawn_random()  # Switch all cell values randomly
+        while click == (1, 0) or click == (2, 0):  # While the interaction buttons are being clicked on, take actions
+            if click == (1, 0):
+                environment.change_specific(interface.click_pos(interface.win_s))  # Switch the clicked on cell's value
+            elif click == (2, 0):
+                environment.spawn_random()  # Switch all cell values randomly
+            else:
+                continue  # Placeholder for start button
 
-            display.generate_update(life.world, life.end)  # Update the display
-            click = display.click_pos(display.win_c)  # Wait for another click
-        # For every generation in the inputted generation range
+            interface.generate_update(environment.world, environment.end)
+            click = interface.click_pos(interface.win_c)  # Wait for another click and save the position
+
         for generation in range(generations):
-            life.next_generation()  # Get the next generation according to the algorithms
-            display.generate_update(life.world, life.end)  # Update the display
+            environment.next_generation()  # Get the next generation according to the algorithms
+            sleep(generation_delay)
+            interface.generate_update(environment.world, environment.end)  # Update the interface
 
 
-GameOfLife.run((40, 20), 100, 50)  # The inputted values to run the game of life
+GameOfLife.run((34, 20), 0.1, 100, 50)  # Start the game of life according to inputted values
