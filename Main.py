@@ -1,13 +1,12 @@
 from Algorithm import Life  # Use the life class from algorithm
 from Display import Interface  # Use the interface class from display
-from time import sleep  # Use the sleep function from time
 
 
 class GameOfLife:
     """Holds the Game of Life"""
 
     @staticmethod
-    def run(cell_numbers, generations, generation_delay, size):
+    def run(cell_numbers, generations, size):
         """Run the Game of Life"""
         display = Interface(cell_numbers, size)  # Create the display object according to parameters
         life = Life(cell_numbers)  # Create the life object according to parameters
@@ -27,7 +26,6 @@ class GameOfLife:
         for generation in range(generations):
             life.next_generation()  # Get the next generation according to the algorithms
             display.generate_update(life.world, life.end)  # Update the display
-            sleep(generation_delay)  # Pause for the inputted value
 
 
-GameOfLife.run((20, 10), 25, 0.5, 50)  # The inputted values to run the game of life
+GameOfLife.run((40, 20), 100, 50)  # The inputted values to run the game of life
