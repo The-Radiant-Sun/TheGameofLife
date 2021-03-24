@@ -13,3 +13,5 @@ class Cell:
 
         else:  # If the cell status is still what it is destined to be
             self.cell_history[-1][1] += 1  # Add one onto the last history value input
+
+

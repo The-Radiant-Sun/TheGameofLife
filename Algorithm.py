@@ -12,6 +12,9 @@ class Life:
         self.spawn = 3  # The number of surrounding cells that alive cells spawn at
         self.goldilocks = [2, 3]  # The lower and upper bounds for life to live
         self.end = False  # Whether or not the world will end
+        self.world_history = None
+        self.attempt_file_creation()
+        self.update_world_history()
 
     def change_specific(self, cell_pos):
         """Switches a specific cells value"""
@@ -72,3 +75,12 @@ class Life:
                     continue
         # Return the number of cells surrounding cell that are alive
         return cell_count
+
+    def attempt_file_creation(self):
+        try:
+            self.world_history = open("World History", 'x')  # Allows for reading and writing of world history text
+        except FileExistsError:
+            self.world_history = open("World History", 'r+')
+
+    def update_world_history(self):
+        self.world_history.write(str(self.world))
