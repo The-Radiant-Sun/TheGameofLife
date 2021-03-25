@@ -5,7 +5,6 @@ from time import sleep
 
 class GameOfLife:
     """Three dimensional game of life with the z axis as time"""
-    """Rework comments to be relevant"""
     """Change colour of cell alive for longest"""
 
     @staticmethod

@@ -27,9 +27,8 @@ class Cell:
     def update_history(self, change):
         """Updating the history of the cell depending on whether they need to change or not"""
         if change:  # If the cell needs to change
-            self.cell_history.append([False, 0] if self.is_alive() else [True, 0])  # Change status in history
-
+            self.cell_history.append([False, 0] if self.is_alive() else [True, 0])  # Change cell state in history
         else:
-            self.cell_history[-1][1] += 1  # Increase the generation count for the current state
+            self.cell_history[-1][1] += 1  # Increase the generation count for the current cell state
 
 

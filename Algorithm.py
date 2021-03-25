@@ -1,5 +1,5 @@
-from Cell import Cell  # Use the cell class from cell
-import random  # Use the random module
+from Cell import Cell
+import random
 
 
 class Environment:
