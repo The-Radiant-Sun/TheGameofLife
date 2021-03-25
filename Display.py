@@ -47,7 +47,7 @@ class Interface:
                     cell_display.draw(self.win_s)
 
     def click_pos(self, window):
-        """Returns the cell in which was clicked"""
+        """Returns the cell in which the mouse was clicked"""
         mouse_coordinates = window.getMouse()
         for cell_x in range(self.world_size[0]):
             if mouse_coordinates.getX() / self.multiply(1) < cell_x + 1:

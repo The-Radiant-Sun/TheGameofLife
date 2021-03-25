@@ -1,6 +1,3 @@
-from multipledispatch import dispatch
-
-
 class Cell:
     """Contains all information and methods regarding the cells"""
     def __init__(self):
@@ -18,17 +15,13 @@ class Cell:
     def wipe_history(self):
         self.cell_history = [[False, 0], [True, 0]] if self.cell_history[-1] == [True, 0] else [[False, 0]]
 
-    @dispatch()
-    def update_history(self):
+    def increment_history(self):
         """Adds one generation to the current history without changing"""
         self.update_history(False)
 
-    @dispatch(bool)
     def update_history(self, change):
         """Updating the history of the cell depending on whether they need to change or not"""
         if change:  # If the cell needs to change
             self.cell_history.append([False, 0] if self.is_alive() else [True, 0])  # Change cell state in history
         else:
             self.cell_history[-1][1] += 1  # Increase the generation count for the current cell state
-
-

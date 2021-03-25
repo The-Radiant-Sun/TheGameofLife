@@ -5,13 +5,12 @@ from time import sleep
 
 class GameOfLife:
     """Three dimensional game of life with the z axis as time"""
-    """Change colour of cell alive for longest"""
 
     @staticmethod
-    def run(cell_numbers, generation_delay, generations, size):
+    def run(cell_numbers, generation_delay, generations, size, not_bordered):
         """Run the Game of Life according to inputted values using the environment and interface classes"""
         interface = Interface(cell_numbers, size)
-        environment = Environment(cell_numbers)
+        environment = Environment(cell_numbers, not_bordered)
         interface.generate_update(environment.world, environment.end)  # Update the interface with the parameters
         click = interface.click_pos(interface.win_c)  # Wait for a click from the user on the generated console
 
@@ -28,8 +27,9 @@ class GameOfLife:
 
         for generation in range(generations):
             environment.next_generation()  # Get the next generation according to the algorithms
+            environment.update_world_history()  # Update the storage files with the history changes
             sleep(generation_delay)
             interface.generate_update(environment.world, environment.end)  # Update the interface
 
 
-GameOfLife.run((34, 20), 0.05, 100, 50)  # Start the game of life according to inputted values
+GameOfLife.run((12, 12), 0.1, 100, 50, False)  # Start the game of life according to inputted values
