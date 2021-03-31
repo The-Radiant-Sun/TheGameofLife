@@ -25,3 +25,6 @@ class Cell:
             self.cell_history.append([False, 0] if self.is_alive() else [True, 0])  # Change cell state in history
         else:
             self.cell_history[-1][1] += 1  # Increase the generation count for the current cell state
+
+    def converted_data(self):
+        return '/{}'.format('t' if self.cell_history[0][1] == 0 else 'f')

@@ -1,21 +1,21 @@
+from Files import Files
 from Cell import Cell
 import random
 
 
 class Environment:
     """Algorithms for Game of Life"""
-    def __init__(self, world_size, not_bordered):
+    def __init__(self, world_size, not_bordered, use_file):
         """Sets up the critical variables and actions"""
-        self.world_size = world_size
+        self.files = Files(use_file)
+        history = self.files.implement_world_history() if use_file else None
+        self.world_size = history[0] if use_file else world_size  # Sets the world size according to file data or input
         # Create cell objects for each position within the world
         self.world = [[Cell() for y in range(self.world_size[1])] for x in range(self.world_size[0])]
         self.spawn = 3  # The number of surrounding cells that alive cells spawn at
         self.goldilocks = [2, 3]  # The lower and upper bounds for life to stay living
         self.not_bordered = not_bordered
         self.end = False  # Whether or not the world will end
-        self.user_world_history = None  # Empty world history for user to view
-        self.world_history = None  # Begins with empty world history to use in files
-        self.attempt_file_creation()  # Creates new file if one does not exist
 
     def change_specific(self, cell_pos):
         """Switches a specific cells value"""
@@ -82,21 +82,3 @@ class Environment:
 
         # Return the number of cells surrounding cell that are alive
         return cell_count
-
-    def attempt_file_creation(self):
-        """Save world_history as a file if it already exists, otherwise make a new one"""
-        try:  # Allows for reading and writing of files text
-            self.world_history = open("World History.txt", 'x')
-            self.user_world_history = open("User World History.txt", 'x')
-        except FileExistsError:  # If the cell already exists open it to read and write
-            self.world_history = open("World History.txt", 'w+')
-            self.user_world_history = open("User World History.txt", 'w+')
-
-    def update_world_history(self):
-        for x in range(self.world_size[0]):
-            for y in range(self.world_size[1]):
-                self.world_history.write(str(self.world[x][y].cell_history))
-                self.user_world_history.write('0 ' if self.world[x][y].is_alive() else '* ')
-            self.user_world_history.write('\n')
-        self.world_history.write('\n')
-        self.user_world_history.write('\n')
