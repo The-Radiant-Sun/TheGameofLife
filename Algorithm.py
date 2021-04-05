@@ -7,7 +7,7 @@ class Environment:
     """Algorithms for Game of Life"""
     def __init__(self, world_size, not_bordered, use_file):
         """Sets up the critical variables and actions"""
-        self.files = Files(use_file)
+        self.files = Files()
         self.spawn = 3  # The number of surrounding cells that alive cells spawn at
         self.goldilocks = [2, 3]  # The lower and upper bounds for life to stay living
         self.not_bordered = not_bordered

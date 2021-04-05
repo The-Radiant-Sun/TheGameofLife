@@ -9,8 +9,8 @@ class GameOfLife:
     @staticmethod
     def run(world_size, generation_delay, generations, magnification, not_bordered, use_file):
         """Run the Game of Life according to inputted values using the environment and interface classes"""
-        interface = Interface(world_size, magnification)
         environment = Environment(world_size, not_bordered, use_file)
+        interface = Interface(environment.world_size, magnification)
         interface.generate_update(environment.world, environment.end)  # Update the interface with the parameters
         click = interface.click_pos(interface.win_c)  # Wait for a click from the user on the generated console
 
@@ -24,12 +24,12 @@ class GameOfLife:
 
             interface.generate_update(environment.world, environment.end)
             click = interface.click_pos(interface.win_c)  # Wait for another click and save the position
-
-        environment.files.update_world_history(world_size, environment.world)  # Update files with the start state
+        # Update files with the start state
+        environment.files.update_world_history(environment.world_size, environment.world)
         for generation in range(generations):
             environment.next_generation()  # Get the next generation according to the algorithms
             sleep(generation_delay)
             interface.generate_update(environment.world, environment.end)  # Update the interface
 
 
-GameOfLife.run((5, 10), 0.25, 100, 50, False, [True, 1])  # Start the game of life according to inputted values
+GameOfLife.run((20, 10), 0.25, 100, 50, False, [True, 1])  # Start the game of life according to inputted values
