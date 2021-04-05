@@ -27,4 +27,6 @@ class Cell:
             self.cell_history[-1][1] += 1  # Increase the generation count for the current cell state
 
     def converted_data(self):
-        return '/{}'.format('t' if self.cell_history[0][1] == 0 else 'f')
+        old = True if self.length_of_state() != 0 else False
+        return '{}'.format(('+' if old else '=')
+                           if self.is_alive() else ('-' if old else '.'))
