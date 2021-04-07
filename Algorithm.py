@@ -1,4 +1,4 @@
-from Files import Files  # Add a full file-relevant method to minimise init space
+from Files import Files
 from Cell import Cell
 import random
 
@@ -96,7 +96,7 @@ class Environment:
                         self.change_specific((x, y))  # If cell is recorded as alive, then make it so
                     if filed_cell[1]:
                         if not filed_cell[0]:
-                            self.change_specific((x, y))
+                            self.change_specific((x, y))  # Change the specific cell
                             self.world[x][y].update_history(True)  # List cell as dead if it is recorded
                         else:
                             self.world[x][y].increment_history()  # Add history if it is recorded

@@ -32,4 +32,4 @@ class GameOfLife:
             interface.generate_update(environment.world, environment.end)  # Update the interface
 
 
-GameOfLife.run((20, 10), 0.25, 100, 50, False, [True, 1])  # Start the game of life according to inputted values
+GameOfLife.run((30, 15), 0.25, 100, 50, False, [False, 0])  # Start the game of life according to inputted values

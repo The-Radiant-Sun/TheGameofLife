@@ -13,6 +13,7 @@ class Cell:
         return self.cell_history[-1][1]
 
     def wipe_history(self):
+        """Remove the filler history and the age of the states"""
         self.cell_history = [[False, 0], [True, 0]] if self.cell_history[-1] == [True, 0] else [[False, 0]]
 
     def increment_history(self):
@@ -27,6 +28,6 @@ class Cell:
             self.cell_history[-1][1] += 1  # Increase the generation count for the current cell state
 
     def converted_data(self):
-        old = True if self.length_of_state() != 0 else False
-        return '{}'.format(('+' if old else '=')
-                           if self.is_alive() else ('-' if old else '.'))
+        """Return the cell data in condensed text format"""
+        old = True if self.length_of_state() != 0 else False  # Whether the cell has maintained a state or is new
+        return '{}'.format(('+' if old else '=') if self.is_alive() else ('-' if old else '.'))  # The age and state
