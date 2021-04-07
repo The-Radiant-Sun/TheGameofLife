@@ -85,6 +85,7 @@ class Environment:
         return cell_count
 
     def file_conversion(self, use_file):
+        """Converts the history output from the file class into the relevant self variables"""
         if use_file[0]:
             history = self.files.return_world_history(use_file[1])
             self.world_size = history[0]  # Sets the world size according to file data
