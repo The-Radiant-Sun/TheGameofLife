@@ -19,8 +19,8 @@ class Files:
     def update_world_history(self, world_size, world):
         """Add the data to two files, one that is for the machine, one that is for the user"""
         self.world_history.write("{}|{}/".format(world_size[0], world_size[1]))
-        for y in range(world_size[1]):
-            for x in range(world_size[0]):
+        for x in range(world_size[0]):
+            for y in range(world_size[1]):
                 self.world_history.write(world[x][y].converted_data())  # For every position store the converted data
                 self.user_world_history.write('0 ' if world[x][y].is_alive() else '* ')  # Make a user-friendly version
             self.user_world_history.write('\n')
