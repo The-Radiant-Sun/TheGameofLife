@@ -2,7 +2,7 @@ class Files:
     def __init__(self):
         self.user_world_history = None  # Empty world history for user to view
         self.world_history = None  # Begins with empty world history to use in files
-        self.file_data = None
+        self.file_data = None  # Start with empty file data
         self.attempt_file_creation()  # Creates new file if one does not exist
 
     def attempt_file_creation(self):

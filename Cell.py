@@ -13,6 +13,7 @@ class Cell:
         return self.cell_history[-1][1]
 
     def wipe_history(self):
+        """Remove the filler history and the age of the states"""
         self.cell_history = [[False, 0], [True, 0]] if self.cell_history[-1] == [True, 0] else [[False, 0]]
 
     def increment_history(self):
