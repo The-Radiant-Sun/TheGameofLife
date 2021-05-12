@@ -11,7 +11,6 @@ class GameOfLife:
         self.generations = self.get_input("Number of generations: ", int)
         self.magnification = self.get_input("Magnification of cells: ", int)
         self.not_bordered = self.get_input("Bordered? Y/N: ", bool)
-
         self.file_use = self.get_input("Use previous save? Y/N: ", bool)
         self.use_file = [self.file_use, self.get_input("Generation of save: ", int) if self.file_use else 0]
 
